@@ -13,21 +13,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  width: 100%;
-  padding: 2rem;
-  text-align: center;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+  span {
+    user-select: none;
+    font-weight: 600;
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .endText {
+    position: absolute;
+    font-size: 3rem;
+  }
+  canvas {
+    height: 75vh;
+    height: 75dvh;
+  }
 }
+

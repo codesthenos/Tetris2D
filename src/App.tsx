@@ -1,7 +1,20 @@
+//Draw Function
+import draw from './utilities/canvasDraw.ts'
+//Custom hook
+import useCanvas from './hooks/useCanvas.ts'
+//Components
+import Score from './components/Score.tsx'
+import TextEndGame from './components/TextEndGame.tsx'
+import Canvas from './components/Canvas.tsx'
+
 function App () {
+  const { canvasRef, score, textEndGame } = useCanvas(draw)
+  
   return (
     <>
-      <h1>TETRIS 2D</h1>
+      <Score score={score} />
+      <TextEndGame textEndGame={textEndGame} />
+      <Canvas canvasRef={canvasRef} />
     </>
   )
 }
