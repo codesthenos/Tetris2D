@@ -12,7 +12,7 @@ function useCanvas (draw: ({ context, boxes, mode, color }: { context: CanvasRen
 
   const frameIdRef = useRef(0)
   const speedRef = useRef(INITIAL_X_SPEED)
-  const boxesRef = useRef<box[]>([INITIAL_BOX])
+  const pieceRef = useRef<piece>([INITIAL_PIECE])
   const modeRef = useRef<MODE>(MODE.BOUNCE)
   const currentRef = useRef(0)
 

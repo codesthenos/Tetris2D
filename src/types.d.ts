@@ -1,6 +1,7 @@
-export interface box {
+import type { SHAPES } from './constants'
+
+export interface piece {
   x: number
   y: number
-  width: number
-  color: string
+  shape: SHAPES
 }
