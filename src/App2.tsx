@@ -1,5 +1,6 @@
 function App () {
   const canvas = document.querySelector('canvas')
+  if (!canvas) return
   const context = canvas.getContext('2d')
   const $score = document.querySelector('span')
   const $section = document.querySelector('section')
@@ -12,10 +13,10 @@ function App () {
   
   canvas.width = BLOCK_SIZE * BOARD_WIDTH
   canvas.height = BLOCK_SIZE * BOARD_HEIGHT
-  
+  if (!context) return
   context.scale(BLOCK_SIZE, BLOCK_SIZE)
   
-  const board = []
+  const board: number[][] = []
   for (let i = 0; i < BOARD_HEIGHT; i++) {
     const row = []
     for (let j = 0; j < BOARD_WIDTH; j++) {
@@ -86,6 +87,7 @@ function App () {
   }
   
   function draw () {
+    if(!context || !canvas) return
     context.fillStyle = '#000'
     context.fillRect(0, 0, canvas.width, canvas.height)
   
@@ -106,33 +108,34 @@ function App () {
         }
       })
     })
-    $score.innerText = score
+    if (!$score) return
+    $score.innerText = `${score}`
   }
   
-  function rightRotatePiece (piece) {
+  function rightRotatePiece (pieceV: typeof piece) {
     const rotatedShape = []
   
-    for (let y = 0; y < piece.shape[0].length; y++) {
+    for (let y = 0; y < pieceV.shape[0].length; y++) {
       const newRow = []
-      for (let x = piece.shape.length - 1; x >= 0; x--) {
-        newRow.push(piece.shape[x][y])
+      for (let x = pieceV.shape.length - 1; x >= 0; x--) {
+        newRow.push(pieceV.shape[x][y])
       }
       rotatedShape.push(newRow)
     }
-    piece.shape = rotatedShape
+    pieceV.shape = rotatedShape
   }
   
-  function leftRotatePiece (piece) {
+  function leftRotatePiece (pieceV: typeof piece) {
     const rotatedShape = []
   
-    for (let y = piece.shape[0].length - 1; y >= 0; y--) {
+    for (let y = pieceV.shape[0].length - 1; y >= 0; y--) {
       const newRow = []
-      for (let x = 0; x < piece.shape.length; x++) {
-        newRow.push(piece.shape[x][y])
+      for (let x = 0; x < pieceV.shape.length; x++) {
+        newRow.push(pieceV.shape[x][y])
       }
       rotatedShape.push(newRow)
     }
-    piece.shape = rotatedShape
+    pieceV.shape = rotatedShape
   }
   
   document.addEventListener('keydown', event => {
@@ -194,7 +197,7 @@ function App () {
   }
   
   function removeRows () {
-    const rowsToRemove = []
+    const rowsToRemove: number[] = []
   
     board.forEach((row, y) => {
       if (row.every(value => value === 1)) {
@@ -204,12 +207,12 @@ function App () {
   
     rowsToRemove.forEach(y => {
       board.splice(y, 1)
-      const newRow = Array(BOARD_WIDTH).fill(0)
+      const newRow = Array(BOARD_WIDTH).fill(0) as number[]
       board.unshift(newRow)
       score += 10
     })
   }
-  
+  if (!$section) return
   $section.addEventListener('click', () => {
     update()
   
@@ -218,7 +221,7 @@ function App () {
     const audio = new window.Audio('./tetris-theme-korobeiniki.mp3')
     console.log(audio)
     audio.volume = 0.5
-    audio.play()
+    void audio.play()
   })
 
   return (
